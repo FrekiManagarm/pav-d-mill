@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 /Users/mathieuchambaud/Documents/Perso-Projects/pav-d-mill/.claude/skills/ui-ux-pro-max/scripts/search.py \"luxury chateau venue wedding event premium immersive\" --design-system -p \"Pavillon des Millésimes\" -f markdown)",
+      "Bash(python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"luxury chateau venue wedding event premium immersive\" --design-system -p \"Pavillon des Millésimes\" -f markdown)",
+      "Bash(python3 *)",
+      "WebFetch(domain:www.pavillon-des-millesimes.fr)",
+      "WebSearch",
+      "WebFetch(domain:www.facebook.com)",
+      "WebFetch(domain:www.booking.com)",
+      "WebFetch(domain:www.abcsalles.com)",
+      "WebFetch(domain:www.1001salles.com)",
+      "WebFetch(domain:www.saint-emilion-tourisme.com)",
+      "WebFetch(domain:www.pagesjaunes.fr)",
+      "WebFetch(domain:david-chambaud.fr)",
+      "WebFetch(domain:www.chambres-hotes.fr)",
+      "WebFetch(domain:www.abracadaroom.com)",
+      "WebFetch(domain:www.petitfute.co.uk)",
+      "WebFetch(domain:www.tripadvisor.com)",
+      "WebFetch(domain:www.letsgomylove.com)",
+      "WebFetch(domain:pavillon-des-millesimes.fr)",
+      "WebFetch(domain:web.archive.org)",
+      "WebFetch(domain:www.staycation.co)",
+      "WebFetch(domain:www.hotels.com)",
+      "Bash(bun add *)",
+      "Bash(bun run *)",
+      "Bash(node -e \"const icons = require\\('lucide-react'\\); const names = Object.keys\\(icons\\).filter\\(k => k.toLowerCase\\(\\).includes\\('share'\\) || k.toLowerCase\\(\\).includes\\('link'\\) || k.toLowerCase\\(\\).includes\\('globe'\\)\\).slice\\(0,20\\); console.log\\(names\\)\")",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(node *)",
+      "Bash(curl -s http://localhost:3001 -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "claude-flow"
+  ]
+}

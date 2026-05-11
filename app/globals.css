@@ -1,26 +1,236 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────
+   Design tokens — dark (default)
+   "light" overrides via [data-theme="light"]
+───────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background:     #0C0A07;
+  --foreground:     #FAF8F4;
+
+  --c-black:        #0C0A07;
+  --c-dark:         #1A1612;
+  --c-dark-card:    #221E19;
+  --c-dark-border:  #2E2820;
+  --c-gold:         #C9A45E;
+  --c-gold-light:   #E8D5A8;
+  --c-gold-muted:   #A08560;
+  --c-cream:        #F5EDE0;
+  --c-bordeaux:     #6B2D3E;
+  --c-stone:        #8B7A6A;
+  --c-text:         #FAF8F4;
+  --c-text-muted:   #C8B89A;
+
+  /* Section backgrounds */
+  --hero-from:       rgba(107, 45, 62, 0.45);
+  --hero-to:         rgba(201, 164, 94, 0.15);
+  --hero-base:       #0C0A07;
+  --hero-base-mid:   #1A1209;
+  --section-radial:  rgba(201, 164, 94, 0.04);
+
+  /* Component gradients */
+  --about-radial:    rgba(201, 164, 94, 0.04);
+  --dining-radial:   rgba(107, 45, 62, 0.3);
+  --well-radial:     rgba(122, 163, 194, 0.06);
+  --cta-radial:      rgba(107, 45, 62, 0.25);
+  --cta-radial-2:    rgba(201, 164, 94, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─────────────────────────────────────
+   Light theme overrides
+───────────────────────────────────── */
+[data-theme="light"] {
+  --background:     #F5EDE0;
+  --foreground:     #1A1612;
+
+  --c-black:        #F5EDE0;
+  --c-dark:         #EBE1D3;
+  --c-dark-card:    #E2D8CA;
+  --c-dark-border:  #CFC4B4;
+  --c-gold:         #A87C30;
+  --c-gold-light:   #C49840;
+  --c-gold-muted:   #8B6428;
+  --c-cream:        #F5EDE0;
+  --c-bordeaux:     #6B2D3E;
+  --c-stone:        #6A5A4A;
+  --c-text:         #1A1612;
+  --c-text-muted:   #5C4E40;
+
+  /* Section backgrounds */
+  --hero-from:      rgba(107, 45, 62, 0.12);
+  --hero-to:        rgba(201, 164, 94, 0.18);
+  --hero-base:      #F5EDE0;
+  --hero-base-mid:  #EDE3D0;
+  --section-radial: rgba(168, 124, 48, 0.06);
+
+  --about-radial:   rgba(168, 124, 48, 0.06);
+  --dining-radial:  rgba(107, 45, 62, 0.1);
+  --well-radial:    rgba(168, 124, 48, 0.08);
+  --cta-radial:     rgba(107, 45, 62, 0.08);
+  --cta-radial-2:   rgba(168, 124, 48, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─────────────────────────────────────
+   Tailwind v4 theme tokens
+   (no "inline" → utilities reference CSS vars at runtime)
+───────────────────────────────────── */
+@theme {
+  --color-background:   var(--background);
+  --color-foreground:   var(--foreground);
+
+  --color-black:        var(--c-black);
+  --color-dark:         var(--c-dark);
+  --color-dark-card:    var(--c-dark-card);
+  --color-dark-border:  var(--c-dark-border);
+  --color-gold:         var(--c-gold);
+  --color-gold-light:   var(--c-gold-light);
+  --color-gold-muted:   var(--c-gold-muted);
+  --color-cream:        var(--c-cream);
+  --color-bordeaux:     var(--c-bordeaux);
+  --color-stone:        var(--c-stone);
+  --color-text:         var(--c-text);
+  --color-text-muted:   var(--c-text-muted);
+
+  --font-heading: var(--font-cormorant);
+  --font-body:    var(--font-jost);
+}
+
+/* ─────────────────────────────────────
+   Section background helpers
+   (inline gradients that need theming)
+───────────────────────────────────── */
+.hero-gradient-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 70%, var(--hero-from) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, var(--hero-to)   0%, transparent 60%),
+    linear-gradient(180deg, var(--hero-base) 0%, var(--hero-base-mid) 40%, var(--hero-base) 100%);
+}
+
+.about-gradient-bg {
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 50%, var(--about-radial) 0%, transparent 70%),
+    var(--hero-base);
+}
+
+.dining-gradient-bg {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 30%, var(--dining-radial) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, var(--about-radial)  0%, transparent 50%),
+    var(--hero-base);
+}
+
+.wellness-gradient-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, var(--well-radial)  0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 30%,  var(--about-radial) 0%, transparent 50%),
+    var(--hero-base);
+}
+
+.testimonials-gradient-bg {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, var(--about-radial) 0%, transparent 70%),
+    var(--hero-base);
+}
+
+.location-gradient-bg {
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 50%, var(--about-radial) 0%, transparent 60%),
+    var(--hero-base);
+}
+
+.pool-visual-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(12, 10, 7, 0.4) 0%,
+      transparent 30%,
+      rgba(7, 18, 28, 0.3) 70%,
+      var(--c-black) 100%
+    ),
+    linear-gradient(145deg, #061420 0%, #0C2030 40%, #061830 70%, #040C18 100%);
+}
+[data-theme="light"] .pool-visual-bg {
+  background:
+    linear-gradient(180deg,
+      rgba(245, 237, 224, 0.3) 0%,
+      transparent 30%,
+      rgba(7, 18, 60, 0.1) 70%,
+      var(--c-dark) 100%
+    ),
+    linear-gradient(145deg, #C8E4F0 0%, #A8D4E8 40%, #B8DAF0 70%, #C8E8F8 100%);
+}
+
+.reservation-gradient-bg {
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 50%, var(--cta-radial)   0%, transparent 60%),
+    radial-gradient(ellipse 60%  40% at 20% 20%, var(--cta-radial-2) 0%, transparent 50%),
+    radial-gradient(ellipse 60%  40% at 80% 80%, var(--about-radial) 0%, transparent 50%),
+    linear-gradient(180deg, var(--hero-base) 0%, var(--c-dark) 50%, var(--hero-base) 100%);
+}
+
+/* ─────────────────────────────────────
+   Base
+───────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jost), "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Theme transition for all elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+/* Exclude animation properties from transition reset */
+.no-theme-transition {
+  transition: none !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-black); }
+::-webkit-scrollbar-thumb { background: var(--c-gold); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-gold-light); }
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(201, 164, 94, 0.3);
+  color: var(--c-text);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
