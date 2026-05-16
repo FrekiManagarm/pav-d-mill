@@ -1,62 +1,74 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import MagneticLink from "@/components/MagneticLink";
 import Navigation from "@/components/Navigation";
 import Reservation from "@/components/Reservation";
 
 const bookingUrl = "https://www.pavillon-des-millesimes.fr/fr/booking/room";
+
 const images = {
   chateau:
     "https://upload.wikimedia.org/wikipedia/commons/3/3a/Chateau_de_Lussac_%28Lussac-Saint_Emilion%29.jpg",
   vineyard:
     "https://upload.wikimedia.org/wikipedia/commons/9/98/Vineyards_of_St_Emilion.jpg",
-  village:
-    "https://upload.wikimedia.org/wikipedia/commons/9/98/Vineyards_of_St_Emilion.jpg",
 };
 
-const signatureMoments = [
+const proofPoints = [
+  "Meilleur tarif en direct",
+  "SPA privatisable",
+  "Table sur réservation",
+  "Piscine chauffée en saison",
+  "9 km de Saint-Émilion",
+];
+
+const arrivalSequence = [
+  {
+    step: "01",
+    title: "Entrer dans le silence",
+    text: "La grille, les arbres, la pierre claire. On quitte la route pour retrouver une maison qui ralentit tout de suite le rythme.",
+  },
+  {
+    step: "02",
+    title: "Choisir son refuge",
+    text: "Cinq chambres, deux studios, des matières douces et la possibilité de privatiser la demeure pour vivre le Pavillon comme une maison de famille.",
+  },
+  {
+    step: "03",
+    title: "Garder la soirée sur place",
+    text: "La table d’hôtes permet de rester dans l’atmosphère du lieu: cuisine de saison, vins du territoire et conversation tranquille.",
+  },
+  {
+    step: "04",
+    title: "Fermer la journée au SPA",
+    text: "Sauna, hammam, jacuzzi et soins sur demande. Une parenthèse que l’on réserve pour deux, après les châteaux et les vignes.",
+  },
+];
+
+const sanctuaries = [
   {
     kicker: "Maison",
-    title: "Hôtel particulier de 1882",
-    text: "Une demeure en pierre bordelaise, restaurée pour accueillir des séjours intimes à 9 km de Saint-Émilion.",
+    title: "Une demeure de 1882, tenue comme une confidence.",
+    text: "Pas un hôtel impersonnel: une adresse à taille humaine, avec la précision d’un lieu de séjour exigeant.",
     image: images.chateau,
   },
   {
-    kicker: "Table",
-    title: "Dîner bistronomique",
-    text: "David cuisine un menu de saison, pensé autour du marché, des produits locaux et des vins du territoire.",
+    kicker: "Vignoble",
+    title: "Saint-Émilion à portée de matinée.",
+    text: "Les routes de Lussac, Puisseguin et Saint-Émilion deviennent le décor naturel du week-end.",
     image: images.vineyard,
   },
   {
-    kicker: "Spa",
-    title: "Parenthèse privatisée",
-    text: "Hammam, sauna, jacuzzi et massages se réservent comme un moment calme, à votre rythme.",
-    image: images.village,
+    kicker: "Bien-être",
+    title: "Le luxe discret d’avoir le temps.",
+    text: "SPA privatif, piscine, terrasse et chambres calmes: tout ramène à une sensation de refuge.",
+    image: images.chateau,
   },
 ];
 
-const rooms = [
-  {
-    name: "Chambres & suites",
-    meta: "5 chambres, 2 studios",
-    text: "Des volumes clairs, des lits généreux, des salles d'eau lumineuses et le calme d'une maison tenue avec soin.",
-  },
-  {
-    name: "Privatisation",
-    meta: "Jusqu'à 16 personnes",
-    text: "Le Pavillon devient une maison de famille pour un séjour oenotouristique, une réunion ou un temps de célébration.",
-  },
-  {
-    name: "Matins au jardin",
-    meta: "Petit-déjeuner inclus",
-    text: "Terrasse, produits locaux, pâtisseries de saison et le temps de composer la journée autour des châteaux voisins.",
-  },
-];
-
-const pathways = [
-  "Week-end romantique avec spa privatif",
-  "Escapade oenologique entre amis",
-  "Séminaire confidentiel pres de Bordeaux",
-  "Mariage intime et dîner assis jusqu'à 50 personnes",
+const bookingReasons = [
+  "Tarifs directs et disponibilité à jour",
+  "Conseil pour organiser le séjour",
+  "Offres coffrets et privatisations",
 ];
 
 export default function Home() {
@@ -66,124 +78,160 @@ export default function Home() {
       <main>
         <section
           id="accueil"
-          className="relative isolate min-h-[100dvh] overflow-hidden bg-ink text-porcelain"
+          className="relative isolate overflow-hidden bg-porcelain text-ink"
         >
-          <Image
-            src={images.chateau}
-            alt="Château et jardin à Lussac-Saint-Émilion"
-            fill
-            priority
-            sizes="100vw"
-            className="absolute inset-0 -z-20 object-cover opacity-[0.72]"
-          />
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(22,24,22,0.9)_0%,rgba(22,24,22,0.66)_44%,rgba(22,24,22,0.22)_100%)]" />
-          <div className="absolute bottom-0 left-0 right-0 -z-10 h-44 bg-[linear-gradient(0deg,var(--color-porcelain)_0%,rgba(247,244,237,0)_100%)]" />
+          <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_12%,rgba(183,200,173,0.42)_0%,transparent_28%),linear-gradient(135deg,#faf8f2_0%,#f2efe6_47%,#e9eee4_100%)]" />
+          <div className="absolute right-0 top-0 -z-10 hidden h-full w-[42vw] bg-sage/20 lg:block" />
 
-          <div className="mx-auto grid min-h-[100dvh] max-w-[1400px] grid-cols-1 px-5 pb-12 pt-28 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pt-32">
-            <div className="flex max-w-3xl flex-col justify-end pb-8 lg:pb-20">
-              <p className="reveal text-xs font-medium uppercase text-sage tracking-[0.24em]">
-                Lussac-Saint-Émilion · Maison d’hôtes & SPA
+          <div className="mx-auto grid min-h-[100dvh] max-w-[1400px] grid-cols-1 gap-10 px-5 pb-10 pt-28 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10 lg:pt-30">
+            <div className="flex flex-col justify-center">
+              <p className="reveal max-w-full rounded-full border border-ink/10 bg-white/58 px-4 py-2 text-xs font-semibold uppercase leading-5 text-wine tracking-[0.14em] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:w-fit sm:tracking-[0.2em]">
+                Maison d’hôtes & SPA à Lussac-Saint-Émilion
               </p>
-              <h1 className="reveal mt-7 max-w-[12ch] font-heading text-5xl font-medium leading-[0.94] text-porcelain sm:text-6xl lg:text-7xl">
-                Pavillon des Millésimes
+              <h1 className="reveal mt-8 max-w-[10.8ch] text-balance font-heading text-5xl font-medium leading-[0.92] text-ink sm:text-6xl lg:text-7xl xl:text-[5.6rem]">
+                Partir sans aller loin.
               </h1>
-              <p className="reveal mt-7 max-w-[58ch] text-base leading-8 text-porcelain/78 sm:text-lg">
-                Un hôtel particulier de 1882 pour s’émerveiller, s’attabler,
-                se ressourcer et explorer les vignobles de Saint-Émilion.
+              <p className="reveal mt-7 max-w-[60ch] text-lg leading-8 text-ink/66">
+                Le Pavillon des Millésimes transforme un séjour près de
+                Saint-Émilion en havre de tranquillité: une demeure de 1882, une
+                table attentive, un SPA privatif et le vignoble autour.
               </p>
+
               <div className="reveal mt-9 flex flex-col gap-3 sm:flex-row">
-                <a
+                <MagneticLink
                   href={bookingUrl}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-wine px-6 text-sm font-semibold text-white shadow-[0_18px_42px_-24px_rgba(101,38,51,0.8)] transition-transform duration-300 active:scale-[0.98]"
+                  className="inline-flex h-13 w-full items-center justify-center rounded-full bg-wine px-7 text-center text-sm font-semibold text-white shadow-[0_22px_54px_-30px_rgba(101,38,51,0.85)] transition-colors hover:bg-[#743040] sm:w-auto"
                 >
-                  Réserver en direct
-                </a>
-                <a
+                  <p className="text-white">Choisir mes dates</p>
+                </MagneticLink>
+                <MagneticLink
                   href="#experiences"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/22 bg-white/8 px-6 text-sm font-semibold text-white backdrop-blur-md transition-transform duration-300 active:scale-[0.98]"
+                  className="inline-flex h-13 w-full items-center justify-center rounded-full border border-ink/12 bg-white/58 px-7 text-center text-sm font-semibold text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-md sm:w-auto"
                 >
-                  Découvrir le lieu
-                </a>
+                  Sentir l’atmosphère
+                </MagneticLink>
+              </div>
+
+              <div className="reveal mt-12 grid max-w-2xl grid-cols-3 gap-3 border-y border-ink/10 py-5">
+                {[
+                  ["1882", "demeure"],
+                  ["7", "refuges"],
+                  ["50", "convives"],
+                ].map(([value, label]) => (
+                  <div key={label}>
+                    <p className="font-heading text-4xl leading-none text-ink">
+                      {value}
+                    </p>
+                    <p className="mt-2 text-[0.67rem] font-semibold uppercase text-ink/46 tracking-[0.18em]">
+                      {label}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            <aside className="reveal self-end justify-self-start rounded-[1.75rem] border border-white/14 bg-white/10 p-4 text-porcelain shadow-[inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-xl sm:p-5 lg:mb-20 lg:justify-self-end">
-              <dl className="grid grid-cols-3 gap-4">
-                {[
-                  ["1882", "demeure"],
-                  ["9 km", "Saint-Émilion"],
-                  ["16", "couchages"],
-                ].map(([value, label]) => (
-                  <div key={label}>
-                    <dt className="font-heading text-3xl leading-none">{value}</dt>
-                    <dd className="mt-2 text-[0.68rem] uppercase text-porcelain/62 tracking-[0.18em]">
-                      {label}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </aside>
+            <div className="relative min-h-125 sm:min-h-145 lg:min-h-190">
+              <div className="reveal absolute right-0 top-4 h-[72%] w-[86%] overflow-hidden rounded-[2.25rem] bg-sage/20 shadow-[0_42px_90px_-66px_rgba(23,24,20,0.7)]">
+                <Image
+                  src={images.chateau}
+                  alt="Demeure et parc à Lussac-Saint-Émilion"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 52vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,244,237,0.05)_0%,rgba(23,24,20,0.14)_100%)]" />
+              </div>
+
+              <div className="reveal absolute bottom-10 left-0 h-[42%] w-[54%] overflow-hidden rounded-[1.6rem] border-10 border-porcelain bg-mist shadow-[0_28px_80px_-58px_rgba(23,24,20,0.72)]">
+                <Image
+                  src={images.vineyard}
+                  alt="Vignes du territoire de Saint-Émilion"
+                  fill
+                  sizes="(min-width: 1024px) 28vw, 72vw"
+                  className="object-cover"
+                />
+              </div>
+
+              <aside className="reveal absolute bottom-0 right-0 w-[84%] max-w-102.5 rounded-[1.75rem] border border-white/55 bg-porcelain/76 p-5 text-ink shadow-[0_26px_72px_-48px_rgba(23,24,20,0.65),inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-xl sm:w-[78%] sm:p-6">
+                <p className="text-xs font-semibold uppercase text-wine tracking-[0.2em]">
+                  Invitation directe
+                </p>
+                <p className="mt-3 font-heading text-3xl leading-[1.02]">
+                  Offrir deux jours au calme.
+                </p>
+                <p className="mt-3 text-sm leading-7 text-ink/62">
+                  Réservez en direct pour garder la meilleure disponibilité et
+                  préparer le séjour avec la maison.
+                </p>
+              </aside>
+            </div>
           </div>
         </section>
 
-        <section className="bg-porcelain px-5 py-5 text-ink sm:px-8 lg:px-10">
-          <div className="mx-auto grid max-w-[1400px] gap-3 border-y border-ink/10 py-4 text-sm uppercase text-ink/58 tracking-[0.16em] md:grid-cols-[1.4fr_1fr_1fr_1fr]">
-            <span className="text-ink">Meilleur tarif en direct</span>
-            <span>SPA privatisable</span>
-            <span>Table d’hôtes</span>
-            <span>Piscine chauffée</span>
+        <section className="overflow-hidden bg-porcelain py-4 text-ink">
+          <div className="soft-marquee flex w-max gap-4 whitespace-nowrap text-xs font-semibold uppercase text-ink/48 tracking-[0.18em]">
+            {[...proofPoints, ...proofPoints].map((item, index) => (
+              <span
+                key={`${item}-${index}`}
+                className="border-y border-ink/10 px-8 py-4"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </section>
 
         <section
           id="experiences"
-          className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-28"
+          className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="lg:pt-20">
+          <div className="mx-auto grid max-w-350 gap-16 lg:grid-cols-[0.72fr_1.28fr]">
+            <div className="lg:pt-14">
               <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
-                L’art de recevoir
+                L’expérience
               </p>
-              <h2 className="mt-5 max-w-[11ch] font-heading text-4xl leading-none sm:text-5xl">
-                Une maison pensée comme un souvenir.
+              <h2 className="mt-5 max-w-[12ch] text-balance font-heading text-4xl leading-none sm:text-5xl lg:text-6xl">
+                Ici, le calme devient le programme.
               </h2>
-              <p className="mt-7 max-w-[62ch] text-base leading-8 text-ink/64">
-                Nathalie compose les séjours, David signe la cuisine. Le Pavillon
-                garde l’intimité d’une maison, avec la précision d’un boutique
-                hôtel: chambres, studios, spa, jardin, billard, terrasse et
-                conseils pour découvrir le vignoble.
+              <p className="mt-7 max-w-[62ch] text-base leading-8 text-ink/62">
+                Le design de la page prend le parti du souffle: peu de bruit,
+                des images larges, des sections qui laissent de l’espace et un
+                chemin très net vers la réservation directe.
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
-              {signatureMoments.map((moment, index) => (
+            <div className="grid gap-5 md:grid-cols-[1.08fr_0.92fr]">
+              {sanctuaries.map((item, index) => (
                 <article
-                  key={moment.title}
-                  className={`group reveal ${
-                    index === 0 ? "md:row-span-2" : ""
-                  }`}
-                  style={{ "--delay": `${index * 90}ms` } as CSSProperties}
+                  key={item.title}
+                  className={`group reveal ${index === 0 ? "md:row-span-2" : ""}`}
+                  style={{ "--delay": `${index * 80}ms` } as CSSProperties}
                 >
                   <div
-                    className={`relative overflow-hidden rounded-[1.5rem] bg-stone/12 ${
-                      index === 0 ? "aspect-[4/5]" : "aspect-[4/3]"
+                    className={`relative overflow-hidden rounded-[1.75rem] bg-sage/18 ${
+                      index === 0 ? "aspect-4/5" : "aspect-[1.22/1]"
                     }`}
                   >
                     <Image
-                      src={moment.image}
-                      alt={moment.title}
+                      src={item.image}
+                      alt={item.title}
                       fill
-                      sizes="(min-width: 1024px) 40vw, 100vw"
+                      sizes="(min-width: 1024px) 42vw, 100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
                     />
                   </div>
-                  <p className="mt-5 text-xs font-semibold uppercase text-wine tracking-[0.2em]">
-                    {moment.kicker}
-                  </p>
-                  <h3 className="mt-2 font-heading text-2xl leading-tight">
-                    {moment.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-ink/62">{moment.text}</p>
+                  <div className="mt-5 max-w-xl">
+                    <p className="text-xs font-semibold uppercase text-wine tracking-[0.2em]">
+                      {item.kicker}
+                    </p>
+                    <h3 className="mt-2 text-balance font-heading text-3xl leading-[1.02]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-ink/62">
+                      {item.text}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
@@ -192,43 +240,65 @@ export default function Home() {
 
         <section
           id="chambres"
-          className="bg-mist px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-28"
+          className="bg-mist px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto max-w-[1400px]">
-            <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-              <h2 className="font-heading text-4xl leading-none sm:text-5xl lg:text-6xl">
-                Chambres, studios et privatisation.
-              </h2>
-              <p className="max-w-[58ch] text-base leading-8 text-ink/64">
-                Le site actuel présente 5 chambres et 2 studios, avec une
-                privatisation possible. La nouvelle page clarifie cette offre
-                sans perdre la chaleur de la maison.
+          <div className="mx-auto max-w-350">
+            <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
+                  Chambres & privatisation
+                </p>
+                <h2 className="mt-5 max-w-[12ch] text-balance font-heading text-4xl leading-none sm:text-5xl lg:text-6xl">
+                  Une maison entière, ou juste votre chambre.
+                </h2>
+              </div>
+              <p className="max-w-[58ch] text-base leading-8 text-ink/62">
+                Cinq chambres, deux studios, des espaces communs généreux et une
+                privatisation possible pour venir à deux, en famille ou avec un
+                cercle choisi.
               </p>
             </div>
 
-            <div className="mt-12 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-              <div className="relative min-h-[460px] overflow-hidden rounded-[1.5rem] bg-stone/10">
-                <Image
-                  src={images.vineyard}
-                  alt="Vignes de Saint-Émilion"
-                  fill
-                  sizes="(min-width: 1024px) 58vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="grid gap-4">
-                {rooms.map((room) => (
+            <div className="mt-14 grid gap-6 lg:grid-cols-[0.74fr_1.26fr]">
+              <div className="grid content-between gap-6 border-y border-ink/10 py-6">
+                {arrivalSequence.map((item) => (
                   <article
-                    key={room.name}
-                    className="border-t border-ink/12 py-6 first:border-t-0"
+                    key={item.step}
+                    className="grid grid-cols-[2.4rem_1fr] gap-4 sm:grid-cols-[3.5rem_1fr] sm:gap-5"
                   >
-                    <p className="text-xs font-semibold uppercase text-wine tracking-[0.2em]">
-                      {room.meta}
+                    <p className="font-heading text-2xl text-wine sm:text-3xl">
+                      {item.step}
                     </p>
-                    <h3 className="mt-3 font-heading text-3xl">{room.name}</h3>
-                    <p className="mt-3 text-sm leading-7 text-ink/62">{room.text}</p>
+                    <div>
+                      <h3 className="text-balance font-heading text-2xl leading-none sm:text-3xl">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-7 text-ink/62">
+                        {item.text}
+                      </p>
+                    </div>
                   </article>
                 ))}
+              </div>
+
+              <div className="relative min-h-105 overflow-hidden rounded-3xl bg-sage/18 sm:min-h-130 lg:min-h-[620px]">
+                <Image
+                  src={images.vineyard}
+                  alt="Vignes autour de Saint-Émilion"
+                  fill
+                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
+                  <div className="max-w-xl rounded-3xl border border-white/40 bg-porcelain/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
+                    <p className="text-xs font-semibold uppercase text-wine tracking-[0.2em]">
+                      Le bon format
+                    </p>
+                    <p className="mt-3 text-balance font-heading text-2xl leading-none sm:text-3xl">
+                      Week-end, coffret, séjour long ou maison privatisée.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -236,27 +306,28 @@ export default function Home() {
 
         <section
           id="table"
-          className="bg-ink px-5 py-20 text-porcelain sm:px-8 lg:px-10 lg:py-28"
+          className="bg-ink px-5 py-20 text-porcelain sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+          <div className="mx-auto grid max-w-[1400px] gap-14 lg:grid-cols-[0.82fr_1.18fr]">
             <div>
               <p className="text-xs font-semibold uppercase text-sage tracking-[0.22em]">
                 Table du Pavillon
               </p>
-              <h2 className="mt-5 font-heading text-4xl leading-none sm:text-5xl">
-                Le soir, la maison passe à table.
+              <h2 className="mt-5 max-w-[12ch] text-balance font-heading text-4xl leading-none sm:text-5xl lg:text-6xl">
+                Rester le soir, sans rompre le charme.
               </h2>
             </div>
-            <div className="grid gap-5 md:grid-cols-[0.9fr_1.1fr]">
+            <div className="grid gap-6 md:grid-cols-[1fr_0.72fr]">
               <p className="text-base leading-8 text-porcelain/68">
                 Menu unique selon la saison, le marché et l’inspiration du chef:
-                bouchées apéritives, entrée, plat, dessert. Une cuisine simple
-                dans l’intention, précise dans l’assiette.
+                bouchées apéritives, entrée, plat, dessert. La table d’hôtes
+                prolonge le sentiment de maison et évite de repartir chercher
+                ailleurs ce que l’on vient de trouver ici.
               </p>
-              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.055] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
-                <p className="font-heading text-5xl">59€</p>
-                <p className="mt-3 text-sm uppercase text-porcelain/52 tracking-[0.18em]">
-                  par personne, hors boissons
+              <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.055] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+                <p className="font-heading text-6xl leading-none">59€</p>
+                <p className="mt-3 text-xs font-semibold uppercase text-porcelain/52 tracking-[0.18em]">
+                  menu hors boissons
                 </p>
                 <p className="mt-5 text-sm leading-7 text-porcelain/66">
                   Sur réservation, du vendredi au lundi, à partir de 4 couverts.
@@ -268,39 +339,47 @@ export default function Home() {
 
         <section
           id="bien-etre"
-          className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-28"
+          className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[1fr_1fr]">
-            <div className="relative min-h-[520px] overflow-hidden rounded-[1.5rem] bg-sage/10">
+          <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[1.12fr_0.88fr]">
+            <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] bg-sage/10 sm:min-h-[520px] lg:min-h-[560px]">
               <Image
                 src={images.chateau}
-                alt="Maison et jardin à Lussac-Saint-Émilion"
+                alt="Demeure entourée d’un parc calme"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 56vw, 100vw"
                 className="object-cover"
               />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(247,244,237,0.02)_0%,rgba(247,244,237,0.78)_100%)]" />
             </div>
-            <div className="self-center lg:pl-10">
-              <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
-                SPA Vinésime
-              </p>
-              <h2 className="mt-5 max-w-[12ch] font-heading text-4xl leading-none sm:text-5xl">
-                Un calme que l’on réserve pour soi.
-              </h2>
-              <p className="mt-7 max-w-[60ch] text-base leading-8 text-ink/64">
-                L’espace bien-être se privatise pour deux personnes: jacuzzi,
-                hammam, sauna, douche et soins sur demande. Une vraie respiration
-                après les châteaux, les galeries souterraines et les chemins de
-                vignes.
-              </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {["60€ pour deux", "1 heure privative", "Massages sur demande", "Piscine de mai à septembre"].map(
-                  (item) => (
-                    <div key={item} className="border-t border-ink/12 pt-4 text-sm text-ink/70">
+            <div className="self-center lg:-ml-24">
+              <div className="rounded-[2rem] border border-ink/8 bg-porcelain/84 p-6 shadow-[0_32px_90px_-62px_rgba(23,24,20,0.58),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:p-8">
+                <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
+                  SPA Vinésime
+                </p>
+                <h2 className="mt-5 max-w-[12ch] text-balance font-heading text-4xl leading-none sm:text-5xl">
+                  La parenthèse qui décide du séjour.
+                </h2>
+                <p className="mt-7 text-base leading-8 text-ink/64">
+                  Le SPA se privatise pour deux personnes: jacuzzi, hammam,
+                  sauna, douche et soins sur demande. C’est la promesse la plus
+                  concrète du havre de tranquillité.
+                </p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {[
+                    "60€ pour deux",
+                    "1 heure privative",
+                    "Massages sur demande",
+                    "Piscine en saison",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="border-t border-ink/12 pt-4 text-sm text-ink/70"
+                    >
                       {item}
                     </div>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -310,22 +389,50 @@ export default function Home() {
           id="receptions"
           className="bg-clay px-5 py-20 text-porcelain sm:px-8 lg:px-10 lg:py-28"
         >
-          <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="mx-auto grid max-w-[1400px] gap-14 lg:grid-cols-[0.86fr_1.14fr]">
             <div>
               <p className="text-xs font-semibold uppercase text-sage tracking-[0.22em]">
                 Séminaires & mariages
               </p>
-              <h2 className="mt-5 font-heading text-4xl leading-none sm:text-5xl">
-                Réunir sans perdre l’intimité.
+              <h2 className="mt-5 max-w-[13ch] text-balance font-heading text-4xl leading-none sm:text-5xl">
+                Un lieu pour réunir sans disperser.
               </h2>
             </div>
             <div className="grid gap-x-8 gap-y-0 md:grid-cols-2">
-              {pathways.map((path) => (
+              {[
+                "Week-end romantique avec SPA privatif",
+                "Escapade oenologique entre amis",
+                "Séminaire confidentiel près de Bordeaux",
+                "Mariage intime et dîner assis jusqu’à 50 personnes",
+              ].map((path) => (
                 <p
                   key={path}
                   className="border-t border-white/12 py-6 text-lg leading-7 text-porcelain/78"
                 >
                   {path}
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-porcelain px-5 py-[4.5rem] text-ink sm:px-8 lg:px-10">
+          <div className="mx-auto grid max-w-[1400px] gap-8 rounded-[2rem] border border-ink/8 bg-white/62 p-6 shadow-[0_30px_90px_-70px_rgba(23,24,20,0.6)] sm:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
+                Pourquoi réserver en direct
+              </p>
+              <h2 className="mt-4 text-balance font-heading text-4xl leading-none sm:text-5xl">
+                Le séjour commence avant l’arrivée.
+              </h2>
+            </div>
+            <div className="grid gap-3">
+              {bookingReasons.map((reason) => (
+                <p
+                  key={reason}
+                  className="border-t border-ink/10 py-4 text-base leading-7 text-ink/66"
+                >
+                  {reason}
                 </p>
               ))}
             </div>

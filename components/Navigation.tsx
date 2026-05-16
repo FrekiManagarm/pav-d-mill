@@ -28,13 +28,17 @@ export default function Navigation({ bookingUrl }: { bookingUrl: string }) {
   return (
     <header className="fixed left-0 right-0 top-0 z-30 px-4 pt-4 sm:px-6 lg:px-8">
       <div
-        className={`mx-auto flex max-w-[1400px] items-center justify-between gap-4 rounded-full border px-4 py-3 transition-all duration-300 sm:px-5 ${
+        className={`mx-auto flex max-w-[1400px] items-center justify-between gap-4 rounded-full border px-4 py-3 text-ink transition-all duration-300 sm:px-5 ${
           isSolid
-            ? "border-ink/10 bg-porcelain/88 text-ink shadow-[0_18px_54px_-34px_rgba(23,24,20,0.45)] backdrop-blur-xl"
-            : "border-white/12 bg-white/8 text-porcelain shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-lg"
+            ? "border-ink/10 bg-porcelain/92 shadow-[0_18px_54px_-36px_rgba(23,24,20,0.35)] backdrop-blur-xl"
+            : "border-white/60 bg-white/54 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] backdrop-blur-xl"
         }`}
       >
-        <a href="#accueil" className="flex min-w-0 flex-col leading-none" onClick={close}>
+        <a
+          href="#accueil"
+          className="flex min-w-0 flex-col leading-none"
+          onClick={close}
+        >
           <span className="text-[0.64rem] font-semibold uppercase tracking-[0.24em] opacity-70">
             Pavillon des
           </span>
@@ -43,7 +47,10 @@ export default function Navigation({ bookingUrl }: { bookingUrl: string }) {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navigation principale">
+        <nav
+          className="hidden items-center gap-7 lg:flex"
+          aria-label="Navigation principale"
+        >
           {links.map((link) => (
             <a
               key={link.href}
@@ -58,17 +65,17 @@ export default function Navigation({ bookingUrl }: { bookingUrl: string }) {
         <div className="flex items-center gap-2">
           <a
             href="tel:+33760567734"
-            className="hidden h-10 items-center gap-2 rounded-full border border-current/15 px-4 text-sm font-semibold transition-transform duration-300 active:scale-[0.98] sm:inline-flex"
+            className="hidden h-10 items-center gap-2 rounded-full border border-current/15 px-4 text-sm font-semibold transition-transform duration-300 active:scale-[0.98] md:inline-flex"
           >
             <Phone size={17} weight="duotone" />
             07 60 56 77 34
           </a>
           <a
             href={bookingUrl}
-            className="hidden h-10 items-center gap-2 rounded-full bg-wine px-4 text-sm font-semibold text-white shadow-[0_16px_36px_-24px_rgba(101,38,51,0.9)] transition-transform duration-300 active:scale-[0.98] md:inline-flex"
+            className="hidden h-10 items-center gap-2 rounded-full bg-wine px-4 text-sm font-semibold shadow-[0_16px_36px_-24px_rgba(101,38,51,0.9)] transition-transform duration-300 active:scale-[0.98] md:inline-flex"
           >
-            <CalendarBlank size={17} weight="duotone" />
-            Réserver
+            <CalendarBlank size={17} className="text-white" weight="duotone" />
+            <p className="text-white">Réserver</p>
           </a>
           <button
             type="button"
@@ -89,7 +96,7 @@ export default function Navigation({ bookingUrl }: { bookingUrl: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ type: "spring", stiffness: 160, damping: 22 }}
-            className="mx-auto mt-3 max-w-[1400px] rounded-[1.5rem] border border-ink/10 bg-porcelain/96 p-4 text-ink shadow-[0_24px_70px_-38px_rgba(23,24,20,0.6)] backdrop-blur-xl lg:hidden"
+            className="mx-auto mt-3 max-w-[1400px] rounded-[1.5rem] border border-ink/10 bg-porcelain/96 p-4 text-ink shadow-[0_24px_70px_-38px_rgba(23,24,20,0.45)] backdrop-blur-xl lg:hidden"
           >
             <nav className="grid gap-1" aria-label="Navigation mobile">
               {links.map((link) => (
@@ -97,7 +104,7 @@ export default function Navigation({ bookingUrl }: { bookingUrl: string }) {
                   key={link.href}
                   href={link.href}
                   onClick={close}
-                  className="rounded-2xl px-4 py-3 font-heading text-3xl transition-colors hover:bg-ink/5"
+                  className="rounded-2xl px-4 py-3 font-heading text-2xl transition-colors hover:bg-ink/5 sm:text-3xl"
                 >
                   {link.label}
                 </a>

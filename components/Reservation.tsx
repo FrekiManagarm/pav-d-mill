@@ -44,34 +44,43 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
   return (
     <section
       id="contact"
-      className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-28"
+      className="bg-porcelain px-5 pb-20 pt-6 text-ink sm:px-8 lg:px-10 lg:pb-28"
     >
-      <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-        <div>
-          <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
-            Réservation
-          </p>
-          <h2 className="mt-5 max-w-[12ch] font-heading text-4xl leading-none sm:text-5xl">
-            Composer votre séjour en direct.
-          </h2>
-          <p className="mt-7 max-w-[58ch] text-base leading-8 text-ink/64">
-            Pour le meilleur tarif disponible, passez par la réservation directe.
-            Vous pouvez aussi écrire à la maison pour une privatisation, un
-            séminaire ou une table.
-          </p>
-          <div className="mt-10 grid gap-3 text-sm text-ink/68">
-            <a href="mailto:contact@pavillon-des-millesimes.fr" className="inline-flex items-center gap-3">
-              <EnvelopeSimple size={19} weight="duotone" />
-              contact@pavillon-des-millesimes.fr
+      <div className="mx-auto grid max-w-[1400px] gap-10 rounded-[2.25rem] bg-[linear-gradient(135deg,#4f443b_0%,#2e332d_100%)] p-5 text-porcelain shadow-[0_36px_100px_-70px_rgba(23,24,20,0.78)] sm:p-8 lg:grid-cols-[0.88fr_1.12fr] lg:p-10">
+        <div className="flex flex-col justify-between gap-12">
+          <div>
+            <p className="text-xs font-semibold uppercase text-sage tracking-[0.22em]">
+              Dernière étape
+            </p>
+            <h2 className="mt-5 max-w-[11ch] font-heading text-4xl leading-none sm:text-5xl lg:text-6xl">
+              Réserver le calme.
+            </h2>
+            <p className="mt-7 max-w-[58ch] text-base leading-8 text-porcelain/68">
+              Le Pavillon se prépare mieux en direct: dates, table, SPA,
+              privatisation, coffret. Vous arrivez déjà attendus.
+            </p>
+          </div>
+          <div className="grid gap-3 text-sm text-porcelain/70">
+            <a
+              href="mailto:contact@pavillon-des-millesimes.fr"
+              className="inline-flex min-w-0 items-start gap-3"
+            >
+              <EnvelopeSimple size={19} weight="duotone" className="mt-0.5 shrink-0" />
+              <span className="min-w-0 break-all">
+                contact@pavillon-des-millesimes.fr
+              </span>
             </a>
-            <a href="tel:+33760567734" className="inline-flex items-center gap-3">
-              <CalendarBlank size={19} weight="duotone" />
-              3 rue de Lincent, 33570 Lussac
+            <a
+              href="tel:+33760567734"
+              className="inline-flex min-w-0 items-start gap-3"
+            >
+              <CalendarBlank size={19} weight="duotone" className="mt-0.5 shrink-0" />
+              <span>3 rue de Lincent, 33570 Lussac</span>
             </a>
           </div>
         </div>
 
-        <div className="rounded-[1.5rem] border border-ink/10 bg-white p-4 shadow-[0_28px_80px_-58px_rgba(23,24,20,0.55)] sm:p-6">
+        <div className="rounded-[1.75rem] border border-white/12 bg-porcelain p-4 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.88)] sm:p-6">
           <form onSubmit={onSubmit} className="grid gap-5">
             <div className="grid gap-5 md:grid-cols-2">
               <label className="grid gap-2">
@@ -80,7 +89,7 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
                   type="date"
                   value={arrival}
                   onChange={(event) => setArrival(event.target.value)}
-                  className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors focus:border-wine"
+                  className="h-12 rounded-2xl border border-ink/12 bg-white px-4 text-sm outline-none transition-colors focus:border-wine"
                 />
                 <span className="text-xs text-ink/46">Date souhaitée de début de séjour.</span>
               </label>
@@ -90,7 +99,7 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
                   type="date"
                   value={departure}
                   onChange={(event) => setDeparture(event.target.value)}
-                  className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors focus:border-wine"
+                  className="h-12 rounded-2xl border border-ink/12 bg-white px-4 text-sm outline-none transition-colors focus:border-wine"
                 />
                 <span className="text-xs text-ink/46">Date de libération de la chambre.</span>
               </label>
@@ -103,7 +112,7 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="vous@exemple.fr"
-                className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors placeholder:text-ink/32 focus:border-wine"
+                className="h-12 rounded-2xl border border-ink/12 bg-white px-4 text-sm outline-none transition-colors placeholder:text-ink/32 focus:border-wine"
               />
               <span className="text-xs text-ink/46">
                 Sert uniquement à préparer votre demande de séjour.
@@ -139,16 +148,16 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
             <div className="flex flex-col gap-3 sm:flex-row">
               <button
                 type="submit"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-white transition-transform duration-300 active:scale-[0.98]"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-center text-sm font-semibold text-white transition-transform duration-300 active:scale-[0.98]"
               >
-                Vérifier ma demande
+                Préparer mon séjour
                 <ArrowRight size={17} weight="bold" />
               </button>
               <a
                 href={bookingUrl}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-ink/12 px-6 text-sm font-semibold transition-transform duration-300 active:scale-[0.98]"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-ink/12 px-6 py-3 text-center text-sm font-semibold transition-transform duration-300 active:scale-[0.98]"
               >
-                Réservation directe
+                Voir les disponibilités
                 <ArrowRight size={17} weight="bold" />
               </a>
             </div>
@@ -156,7 +165,7 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
         </div>
       </div>
 
-      <footer className="mx-auto mt-20 flex max-w-[1400px] flex-col gap-4 border-t border-ink/10 pt-6 text-sm text-ink/58 md:flex-row md:items-center md:justify-between">
+      <footer className="mx-auto mt-16 flex max-w-[1400px] flex-col gap-4 border-t border-ink/10 pt-6 text-sm text-ink/58 md:flex-row md:items-center md:justify-between">
         <p>Pavillon des Millésimes & SPA - Lussac-Saint-Émilion</p>
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           <a href="https://www.instagram.com/pavillonmillesimes/">Instagram</a>
