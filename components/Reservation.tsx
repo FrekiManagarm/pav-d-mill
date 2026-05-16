@@ -1,165 +1,170 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Phone, Mail, ExternalLink } from "lucide-react";
+import { FormEvent, useMemo, useState } from "react";
+import {
+  ArrowRight,
+  CalendarBlank,
+  CheckCircle,
+  EnvelopeSimple,
+  WarningCircle,
+} from "@phosphor-icons/react";
 
-export default function Reservation() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
+type Status = "idle" | "loading" | "success" | "error";
+
+export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
+  const [status, setStatus] = useState<Status>("idle");
+  const [arrival, setArrival] = useState("");
+  const [departure, setDeparture] = useState("");
+  const [email, setEmail] = useState("");
+
+  const error = useMemo(() => {
+    if (status !== "error") return "";
+    if (!arrival || !departure || !email) {
+      return "Ajoutez vos dates et votre e-mail pour préparer la demande.";
+    }
+    if (arrival >= departure) {
+      return "La date de départ doit être après la date d'arrivée.";
+    }
+    return "Impossible de préparer la demande pour l'instant. Le lien direct reste disponible.";
+  }, [arrival, departure, email, status]);
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!arrival || !departure || !email || arrival >= departure) {
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    window.setTimeout(() => {
+      setStatus("success");
+    }, 850);
+  }
 
   return (
     <section
-      id="reservation"
-      ref={ref}
-      className="relative py-28 lg:py-40 px-6 overflow-hidden"
-      aria-labelledby="reservation-title"
+      id="contact"
+      className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-28"
     >
-      {/* Dramatic background */}
-      <div className="absolute inset-0 z-0 reservation-gradient-bg" />
-      {/* Decorative diagonal lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
-        <line x1="0" y1="0" x2="1440" y2="600" stroke="#C9A45E" strokeWidth="0.5" />
-        <line x1="0" y1="600" x2="1440" y2="0" stroke="#C9A45E" strokeWidth="0.5" />
-        <line x1="720" y1="0" x2="720" y2="600" stroke="#C9A45E" strokeWidth="0.3" />
-        <line x1="0" y1="300" x2="1440" y2="300" stroke="#C9A45E" strokeWidth="0.3" />
-      </svg>
-
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <motion.div
-          className="flex items-center justify-center gap-3 mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="w-16 h-px bg-gradient-to-r from-transparent to-gold" aria-hidden="true" />
-          <span
-            className="text-gold text-xs tracking-[0.35em] uppercase"
-            style={{ fontFamily: "var(--font-jost)" }}
-          >
+      <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
             Réservation
-          </span>
-          <span className="w-16 h-px bg-gradient-to-l from-transparent to-gold" aria-hidden="true" />
-        </motion.div>
-
-        <motion.h2
-          id="reservation-title"
-          className="text-4xl lg:text-6xl xl:text-7xl font-light text-text leading-tight mb-6"
-          style={{ fontFamily: "var(--font-cormorant)" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1 }}
-        >
-          Vivez l'expérience
-          <br />
-          <em className="text-gold italic">Millésimes</em>
-        </motion.h2>
-
-        <motion.p
-          className="text-text-muted text-lg leading-relaxed max-w-2xl mx-auto mb-12"
-          style={{ fontFamily: "var(--font-jost)" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.25 }}
-        >
-          Réservez votre séjour, organisez votre événement ou planifiez votre mariage.
-          Nathalie et David sont à votre écoute pour créer une expérience sur-mesure.
-        </motion.p>
-
-        {/* Main CTA */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.35 }}
-        >
-          <a
-            href="https://www.pavillon-des-millesimes.fr/booking/room"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-3 px-10 py-5 bg-gold hover:bg-gold-light text-black text-sm tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer min-w-[260px] justify-center"
-            style={{ fontFamily: "var(--font-jost)" }}
-          >
-            Réserver en ligne
-            <ExternalLink size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" aria-hidden="true" />
-          </a>
-          <a
-            href="tel:+33760567734"
-            className="flex items-center gap-3 px-10 py-5 border border-gold/50 hover:border-gold hover:bg-gold/5 text-gold text-sm tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer min-w-[260px] justify-center"
-            style={{ fontFamily: "var(--font-jost)" }}
-          >
-            <Phone size={14} aria-hidden="true" />
-            Appeler directement
-          </a>
-        </motion.div>
-
-        {/* Contact info strip */}
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-10 border-t border-dark-border"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <div className="flex items-center gap-3">
-            <Phone size={14} className="text-gold" aria-hidden="true" />
-            <div className="text-left">
-              <p
-                className="text-text text-sm"
-                style={{ fontFamily: "var(--font-jost)" }}
-              >
-                <a href="tel:+33557840540" className="hover:text-gold transition-colors duration-200">
-                  05 57 84 05 40
-                </a>
-              </p>
-              <p
-                className="text-stone text-xs"
-                style={{ fontFamily: "var(--font-jost)" }}
-              >
-                Accueil 9h – 19h
-              </p>
-            </div>
+          </p>
+          <h2 className="mt-5 max-w-[12ch] font-heading text-4xl leading-none sm:text-5xl">
+            Composer votre séjour en direct.
+          </h2>
+          <p className="mt-7 max-w-[58ch] text-base leading-8 text-ink/64">
+            Pour le meilleur tarif disponible, passez par la réservation directe.
+            Vous pouvez aussi écrire à la maison pour une privatisation, un
+            séminaire ou une table.
+          </p>
+          <div className="mt-10 grid gap-3 text-sm text-ink/68">
+            <a href="mailto:contact@pavillon-des-millesimes.fr" className="inline-flex items-center gap-3">
+              <EnvelopeSimple size={19} weight="duotone" />
+              contact@pavillon-des-millesimes.fr
+            </a>
+            <a href="tel:+33760567734" className="inline-flex items-center gap-3">
+              <CalendarBlank size={19} weight="duotone" />
+              3 rue de Lincent, 33570 Lussac
+            </a>
           </div>
+        </div>
 
-          <div className="w-px h-8 bg-dark-border hidden sm:block" aria-hidden="true" />
+        <div className="rounded-[1.5rem] border border-ink/10 bg-white p-4 shadow-[0_28px_80px_-58px_rgba(23,24,20,0.55)] sm:p-6">
+          <form onSubmit={onSubmit} className="grid gap-5">
+            <div className="grid gap-5 md:grid-cols-2">
+              <label className="grid gap-2">
+                <span className="text-sm font-semibold text-ink">Arrivée</span>
+                <input
+                  type="date"
+                  value={arrival}
+                  onChange={(event) => setArrival(event.target.value)}
+                  className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors focus:border-wine"
+                />
+                <span className="text-xs text-ink/46">Date souhaitée de début de séjour.</span>
+              </label>
+              <label className="grid gap-2">
+                <span className="text-sm font-semibold text-ink">Départ</span>
+                <input
+                  type="date"
+                  value={departure}
+                  onChange={(event) => setDeparture(event.target.value)}
+                  className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors focus:border-wine"
+                />
+                <span className="text-xs text-ink/46">Date de libération de la chambre.</span>
+              </label>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <Mail size={14} className="text-gold" aria-hidden="true" />
-            <div className="text-left">
+            <label className="grid gap-2">
+              <span className="text-sm font-semibold text-ink">Votre e-mail</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="vous@exemple.fr"
+                className="h-12 rounded-2xl border border-ink/12 bg-porcelain px-4 text-sm outline-none transition-colors placeholder:text-ink/32 focus:border-wine"
+              />
+              <span className="text-xs text-ink/46">
+                Sert uniquement à préparer votre demande de séjour.
+              </span>
+            </label>
+
+            {status === "loading" ? (
+              <div className="grid gap-3 rounded-2xl bg-mist p-4" aria-live="polite">
+                <div className="h-3 w-2/3 animate-pulse rounded-full bg-ink/10" />
+                <div className="h-3 w-1/2 animate-pulse rounded-full bg-ink/10" />
+              </div>
+            ) : null}
+
+            {status === "error" ? (
+              <p className="inline-flex items-start gap-2 rounded-2xl bg-wine/8 p-4 text-sm leading-6 text-wine" aria-live="polite">
+                <WarningCircle size={19} weight="duotone" className="mt-0.5 shrink-0" />
+                {error}
+              </p>
+            ) : null}
+
+            {status === "success" ? (
+              <div className="rounded-2xl bg-sage/28 p-4 text-sm leading-7 text-ink" aria-live="polite">
+                <p className="inline-flex items-center gap-2 font-semibold">
+                  <CheckCircle size={19} weight="duotone" />
+                  Votre demande est prête.
+                </p>
+                <p className="mt-1 text-ink/62">
+                  Ouvrez la réservation directe pour finaliser avec les tarifs à jour.
+                </p>
+              </div>
+            ) : null}
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="submit"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ink px-6 text-sm font-semibold text-white transition-transform duration-300 active:scale-[0.98]"
+              >
+                Vérifier ma demande
+                <ArrowRight size={17} weight="bold" />
+              </button>
               <a
-                href="mailto:contact@pavillon-des-millesimes.fr"
-                className="text-text text-sm hover:text-gold transition-colors duration-200"
-                style={{ fontFamily: "var(--font-jost)" }}
+                href={bookingUrl}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-ink/12 px-6 text-sm font-semibold transition-transform duration-300 active:scale-[0.98]"
               >
-                contact@pavillon-des-millesimes.fr
+                Réservation directe
+                <ArrowRight size={17} weight="bold" />
               </a>
-              <p
-                className="text-stone text-xs"
-                style={{ fontFamily: "var(--font-jost)" }}
-              >
-                Réponse sous 24h
-              </p>
             </div>
-          </div>
-
-          <div className="w-px h-8 bg-dark-border hidden sm:block" aria-hidden="true" />
-
-          {/* Availability info */}
-          <div className="text-center sm:text-left">
-            <p
-              className="text-text text-sm"
-              style={{ fontFamily: "var(--font-jost)" }}
-            >
-              Arrivée 15h · Départ 11h
-            </p>
-            <p
-              className="text-stone text-xs"
-              style={{ fontFamily: "var(--font-jost)" }}
-            >
-              Fermé 20 déc. → 20 jan.
-            </p>
-          </div>
-        </motion.div>
+          </form>
+        </div>
       </div>
+
+      <footer className="mx-auto mt-20 flex max-w-[1400px] flex-col gap-4 border-t border-ink/10 pt-6 text-sm text-ink/58 md:flex-row md:items-center md:justify-between">
+        <p>Pavillon des Millésimes & SPA - Lussac-Saint-Émilion</p>
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <a href="https://www.instagram.com/pavillonmillesimes/">Instagram</a>
+          <a href="https://www.facebook.com/pavillondesmillesimes/">Facebook</a>
+          <a href="https://www.pavillon-des-millesimes.fr/fr/contact">Contact officiel</a>
+          <span>Photos: Wikimedia Commons</span>
+        </div>
+      </footer>
     </section>
   );
 }

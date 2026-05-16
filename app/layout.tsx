@@ -1,34 +1,38 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cormorant_Garamond, Geist } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const heading = Cormorant_Garamond({
+  variable: "--font-pav-heading",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const body = Geist({
+  variable: "--font-pav-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Pavillon des Millésimes & SPA — Maison d'Exception à Saint-Émilion",
+  title: "Pavillon des Millésimes & SPA | Maison d'hôtes à Saint-Émilion",
   description:
-    "Hôtel particulier de 800m² au cœur des vignobles de Saint-Émilion. Chambres de prestige, table privée, SPA, piscine et réceptions d'exception.",
-  keywords:
-    "pavillon des millésimes, chambre hôtes saint-émilion, hôtel de charme bordeaux, réception mariage gironde, spa bordeaux, table privée chef",
+    "Maison d'hôtes de charme à Lussac-Saint-Émilion avec chambres, studios, SPA privatif, piscine, table d'hôtes, séminaires et réceptions.",
+  keywords: [
+    "Pavillon des Millésimes",
+    "chambre d'hôtes Saint-Émilion",
+    "SPA privatif Gironde",
+    "table d'hôtes Lussac",
+    "séminaire Saint-Émilion",
+  ],
   openGraph: {
     title: "Pavillon des Millésimes & SPA",
-    description: "Une maison d'exception au cœur des vignobles de Saint-Émilion",
+    description:
+      "Une maison d'hôtes de prestige au coeur du vignoble de Saint-Émilion.",
     type: "website",
     locale: "fr_FR",
+    url: "https://www.pavillon-des-millesimes.fr",
   },
 };
 
@@ -38,13 +42,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="fr"
-      className={`${cormorant.variable} ${jost.variable} antialiased`}
-    >
-      <body className="bg-background text-text overflow-x-hidden">
-        <div className="noise-overlay" aria-hidden="true" />
-        <ThemeProvider>{children}</ThemeProvider>
+    <html lang="fr" className={`${heading.variable} ${body.variable}`}>
+      <body>
+        <div className="grain" aria-hidden="true" />
+        {children}
       </body>
     </html>
   );
