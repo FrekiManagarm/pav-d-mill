@@ -171,7 +171,7 @@ export default function Reservation({ bookingUrl }: { bookingUrl: string }) {
           <a href="https://www.instagram.com/pavillonmillesimes/">Instagram</a>
           <a href="https://www.facebook.com/pavillondesmillesimes/">Facebook</a>
           <a href="https://www.pavillon-des-millesimes.fr/fr/contact">Contact officiel</a>
-          <span>Photos: Wikimedia Commons</span>
+          <span>Photos: Pavillon des Millésimes</span>
         </div>
       </footer>
     </section>

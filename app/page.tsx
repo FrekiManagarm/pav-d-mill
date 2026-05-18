@@ -7,10 +7,14 @@ import Reservation from "@/components/Reservation";
 const bookingUrl = "https://www.pavillon-des-millesimes.fr/fr/booking/room";
 
 const images = {
-  chateau:
-    "https://upload.wikimedia.org/wikipedia/commons/3/3a/Chateau_de_Lussac_%28Lussac-Saint_Emilion%29.jpg",
-  vineyard:
-    "https://upload.wikimedia.org/wikipedia/commons/9/98/Vineyards_of_St_Emilion.jpg",
+  facade: "/Pavillon-71.jpg",
+  terrace: "/Pavillon-70.jpg",
+  pool: "/Pavillon-73.jpg",
+  lounge: "/Pavillon-49.jpg",
+  staircase: "/Pavillon-37.jpg",
+  tableClose: "/_DSC2220.jpg",
+  tableLight: "/_DSC2447.jpg",
+  tableWide: "/_DSC2699.JPG",
 };
 
 const proofPoints = [
@@ -49,19 +53,42 @@ const sanctuaries = [
     kicker: "Maison",
     title: "Une demeure de 1882, tenue comme une confidence.",
     text: "Pas un hôtel impersonnel: une adresse à taille humaine, avec la précision d’un lieu de séjour exigeant.",
-    image: images.chateau,
+    image: images.terrace,
   },
   {
-    kicker: "Vignoble",
-    title: "Saint-Émilion à portée de matinée.",
-    text: "Les routes de Lussac, Puisseguin et Saint-Émilion deviennent le décor naturel du week-end.",
-    image: images.vineyard,
+    kicker: "Salon",
+    title: "Un intérieur qui garde la chaleur de la pierre.",
+    text: "On s’installe dans une vraie maison: lumière, fauteuils profonds, plantes et murs bordelais.",
+    image: images.lounge,
   },
   {
     kicker: "Bien-être",
     title: "Le luxe discret d’avoir le temps.",
     text: "SPA privatif, piscine, terrasse et chambres calmes: tout ramène à une sensation de refuge.",
-    image: images.chateau,
+    image: images.pool,
+  },
+];
+
+const gallery = [
+  {
+    title: "La terrasse",
+    image: images.facade,
+    className: "md:col-span-2",
+  },
+  {
+    title: "L’escalier",
+    image: images.staircase,
+    className: "",
+  },
+  {
+    title: "La table",
+    image: images.tableLight,
+    className: "",
+  },
+  {
+    title: "Le salon",
+    image: images.lounge,
+    className: "md:col-span-2",
   },
 ];
 
@@ -133,7 +160,7 @@ export default function Home() {
             <div className="relative min-h-125 sm:min-h-145 lg:min-h-190">
               <div className="reveal absolute right-0 top-4 h-[72%] w-[86%] overflow-hidden rounded-[2.25rem] bg-sage/20 shadow-[0_42px_90px_-66px_rgba(23,24,20,0.7)]">
                 <Image
-                  src={images.chateau}
+                  src={images.facade}
                   alt="Demeure et parc à Lussac-Saint-Émilion"
                   fill
                   priority
@@ -145,8 +172,8 @@ export default function Home() {
 
               <div className="reveal absolute bottom-10 left-0 h-[42%] w-[54%] overflow-hidden rounded-[1.6rem] border-10 border-porcelain bg-mist shadow-[0_28px_80px_-58px_rgba(23,24,20,0.72)]">
                 <Image
-                  src={images.vineyard}
-                  alt="Vignes du territoire de Saint-Émilion"
+                  src={images.pool}
+                  alt="Piscine et jardin du Pavillon des Millésimes"
                   fill
                   sizes="(min-width: 1024px) 28vw, 72vw"
                   className="object-cover"
@@ -186,7 +213,7 @@ export default function Home() {
           id="experiences"
           className="bg-porcelain px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto grid max-w-350 gap-16 lg:grid-cols-[0.72fr_1.28fr]">
+          <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-[0.72fr_1.28fr]">
             <div className="lg:pt-14">
               <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
                 L’expérience
@@ -195,9 +222,9 @@ export default function Home() {
                 Ici, le calme devient le programme.
               </h2>
               <p className="mt-7 max-w-[62ch] text-base leading-8 text-ink/62">
-                Le design de la page prend le parti du souffle: peu de bruit,
-                des images larges, des sections qui laissent de l’espace et un
-                chemin très net vers la réservation directe.
+                Les photos du Pavillon donnent le ton: pierre blonde, jardin,
+                terrasse, salons habités et grandes tablées. La page laisse
+                cette atmosphère guider naturellement vers la réservation.
               </p>
             </div>
 
@@ -238,11 +265,54 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="bg-porcelain px-5 pb-20 text-ink sm:px-8 lg:px-10 lg:pb-32">
+          <div className="mx-auto max-w-[1400px]">
+            <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
+                  Aperçus du lieu
+                </p>
+                <h2 className="mt-5 max-w-[12ch] text-balance font-heading text-4xl leading-none sm:text-5xl">
+                  Quelques images suffisent à ralentir.
+                </h2>
+              </div>
+              <p className="max-w-[60ch] text-base leading-8 text-ink/62">
+                Plutôt qu’un catalogue, la galerie propose des fragments: un
+                escalier, une table, un salon, une terrasse. De quoi se projeter
+                sans tout dévoiler.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {gallery.map((item, index) => (
+                <figure
+                  key={item.title}
+                  className={`group reveal ${item.className}`}
+                  style={{ "--delay": `${index * 70}ms` } as CSSProperties}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-[1.75rem] bg-sage/14">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 1024px) 42vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                    />
+                  </div>
+                  <figcaption className="mt-4 text-xs font-semibold uppercase text-ink/46 tracking-[0.18em]">
+                    {item.title}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section
           id="chambres"
           className="bg-mist px-5 py-20 text-ink sm:px-8 lg:px-10 lg:py-32"
         >
-          <div className="mx-auto max-w-350">
+          <div className="mx-auto max-w-[1400px]">
             <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
               <div>
                 <p className="text-xs font-semibold uppercase text-wine tracking-[0.22em]">
@@ -281,16 +351,16 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="relative min-h-105 overflow-hidden rounded-3xl bg-sage/18 sm:min-h-130 lg:min-h-[620px]">
+              <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] bg-sage/18 sm:min-h-[520px] lg:min-h-[620px]">
                 <Image
-                  src={images.vineyard}
-                  alt="Vignes autour de Saint-Émilion"
+                  src={images.terrace}
+                  alt="Terrasse et façade du Pavillon des Millésimes"
                   fill
                   sizes="(min-width: 1024px) 60vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
-                  <div className="max-w-xl rounded-3xl border border-white/40 bg-porcelain/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
+                  <div className="max-w-xl rounded-[1.5rem] border border-white/40 bg-porcelain/76 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.82)] backdrop-blur-xl">
                     <p className="text-xs font-semibold uppercase text-wine tracking-[0.2em]">
                       Le bon format
                     </p>
@@ -333,6 +403,15 @@ export default function Home() {
                   Sur réservation, du vendredi au lundi, à partir de 4 couverts.
                 </p>
               </div>
+              <div className="relative min-h-[300px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.055] md:col-span-2 lg:min-h-[420px]">
+                <Image
+                  src={images.tableClose}
+                  alt="Table dressée au Pavillon des Millésimes"
+                  fill
+                  sizes="(min-width: 1024px) 56vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -344,8 +423,8 @@ export default function Home() {
           <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[1.12fr_0.88fr]">
             <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] bg-sage/10 sm:min-h-[520px] lg:min-h-[560px]">
               <Image
-                src={images.chateau}
-                alt="Demeure entourée d’un parc calme"
+                src={images.pool}
+                alt="Piscine et jardin à l’abri des murs de pierre"
                 fill
                 sizes="(min-width: 1024px) 56vw, 100vw"
                 className="object-cover"
@@ -387,8 +466,16 @@ export default function Home() {
 
         <section
           id="receptions"
-          className="bg-clay px-5 py-20 text-porcelain sm:px-8 lg:px-10 lg:py-28"
+          className="relative isolate overflow-hidden bg-clay px-5 py-20 text-porcelain sm:px-8 lg:px-10 lg:py-28"
         >
+          <Image
+            src={images.tableWide}
+            alt="Salle de réception dressée au Pavillon des Millésimes"
+            fill
+            sizes="100vw"
+            className="absolute inset-0 -z-20 object-cover opacity-[0.24]"
+          />
+          <div className="absolute inset-0 -z-10 bg-clay/88" />
           <div className="mx-auto grid max-w-[1400px] gap-14 lg:grid-cols-[0.86fr_1.14fr]">
             <div>
               <p className="text-xs font-semibold uppercase text-sage tracking-[0.22em]">
